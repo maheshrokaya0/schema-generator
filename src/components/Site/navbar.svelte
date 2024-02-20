@@ -9,3 +9,9 @@
         </nav>
     </div>
 </header>
+
+<style>
+    nav a{
+       padding-left: 10px; 
+    }
+</style>
