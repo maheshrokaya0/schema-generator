@@ -1,17 +1,11 @@
 <header class="w-full border-b">
-    <div class="h-16 max-w-4xl mx-auto flex items-center justify-between">
+    <div class="h-16 max-w-4xl mx-auto px-3 flex items-center justify-between ">
         <a href="/" class="text-2xl text-sky-600">LOGO</a>
-        <nav>
-            <a href="#features">Features</a>
-            <a href="#pricing">Pricing</a>
-            <a href="#contact">Contact</a>
-            <a href="#about">About</a>
+        <nav class="text-lg">
+            <a href="#features" class="hover:text-sky-600">Features</a>
+            <a href="#pricing" class="pl-3 hover:text-sky-600">Pricing</a>
+            <a href="#contact" class="pl-3 hover:text-sky-600">Contact</a>
+            <a href="#about" class="pl-3 hover:text-sky-600">About</a>
         </nav>
     </div>
 </header>
-
-<style>
-    nav a{
-       padding-left: 10px; 
-    }
-</style>
