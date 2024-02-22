@@ -10,15 +10,39 @@
     import Setting from '../../assets/icons/setting.svelte';
     
 
-    let newCol, plusIcon, colItems;
+    const list = {
+        "Plain Text": Text,
+        Number: Number,
+        Bool: Bool,
+        Email: Email,
+        DateTime: Calender,
+        Decimal: Decimal,
+        Relation: Relation,
+        Json: Braces
+    };
+    let newArray = [{}];
+    
+    let newCol, plusIcon, colItems, inputField, inputIcon;
 
     function colfun(){
         newCol.classList.add("rounded-b-none");
         colItems.classList.remove("hidden");
+        
     }
-    function colOptFun(){
+    function colOptFun(key, Component){
+        const obj = {
+            key,
+            Component
+        };
+        newArray = [...newArray, obj];
+        inputField.value = "Field";
+        inputField.select();
+        console.log(newArray);
+        // newArray.unshift(key);
+        // fieldInput.classList.remove("hidden");
+    }
 
-    }
+
 
 </script>
 
@@ -33,27 +57,24 @@
         </div>
         <div class="mt-5">
             <h4 class="text-lg border-b pb-2">Columns</h4>
-            <div class="border rounded my-5 shadow-lg">
-                <div class="flex justify-between items-center py-2">
-                    <i class="mx-2">#</i>
-                    <input type="text" class="py-1 px-2 w-full mx-1 tracking-widest rounded focus:outline-none focus:bg-gray-200"/>
-                    <i class="mx-2"><Setting /></i>
+            {#each newArray as item}
+                <div>
+                    <div class="flex justify-between items-center py-2 border rounded my-5 shadow-lg">
+                            <i class="mx-2" bind:this={inputIcon}>#</i>
+                            <input type="text" class="py-1 px-2 w-full mx-1 tracking-widest rounded focus:outline-none focus:bg-gray-200" bind:this={inputField}/>
+                            <i class="mx-2"><Setting /></i>
+                    </div>
                 </div>
-            </div>
+            {/each}
             <div>
                 <button class="block w-full border-2 border-black py-2 rounded hover:bg-gray-200 text-sm font-semibold hover:cursor-pointer" bind:this={newCol}  on:click={()=> colfun()}><span bind:this={plusIcon}>+</span> New column</button>
             </div>
             <div>
                 <div class="hidden w-full border-2 border-t-0 rounded-t-none border-black text-center py-2 rounded" bind:this={colItems}>
                     <div class="mx-4 flex flex-row flex-wrap">
-                            <div class="text-left basis-1/3 px-3 py-2 hover:cursor-pointer hover:bg-gray-300 rounded"><button class="flex"><i><Text /></i><span class="pl-2">Plain Text</span></button></div>
-                            <div class="text-left basis-1/3 px-3 py-2 hover:cursor-pointer hover:bg-gray-300 rounded"><button class="flex"><i><Number /></i><span class="pl-2">Number</span></button></div>
-                            <div class="text-left basis-1/3 px-3 py-2 hover:cursor-pointer hover:bg-gray-300 rounded"><button class="flex"><i><Bool/></i><span class="pl-2">Bool</span></button></div>
-                            <div class="text-left basis-1/3 px-3 py-2 hover:cursor-pointer hover:bg-gray-300 rounded"><button class="flex"><i><Email /></i><span class="pl-2">Email</span></button></div>
-                            <div class="text-left basis-1/3 px-3 py-2 hover:cursor-pointer hover:bg-gray-300 rounded"><button class="flex"><i><Calender /></i><span class="pl-2">DateTime</span></button></div>
-                            <div class="text-left basis-1/3 px-3 py-2 hover:cursor-pointer hover:bg-gray-300 rounded"><button class="flex"><i><Decimal /></i><span class="pl-2">Decimal</span></button></div>
-                            <div class="text-left basis-1/3 px-3 py-2 hover:cursor-pointer hover:bg-gray-300 rounded"><button class="flex"><i><Relation /></i><span class="pl-2">Relation</span></button></div>
-                            <div class="text-left basis-1/3 px-3 py-2 hover:cursor-pointer hover:bg-gray-300 rounded"><button class="flex"><i><Braces /></i><span class="pl-2">Json</span></button></div>
+                        {#each Object.entries(list) as [key, Component]}
+                            <div class="text-left basis-1/3 hover:cursor-pointer hover:bg-gray-300 rounded"><button class="flex px-3 py-2 w-full" on:click={()=> colOptFun({key}, Component)}><i><Component/></i><span class="pl-2">{key}</span></button></div>
+                        {/each}
                     </div>
                 </div>
             </div>
