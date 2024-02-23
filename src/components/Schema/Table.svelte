@@ -89,11 +89,11 @@
     // const item = newArray.find(item => item.id === itemId);
     toggle = !toggle;
     if (!toggle) {
-      itemId.classList.remove("hidden");
-    //   settingIcon.classList.add("bg-gray-200", "rounded-lg");
+      settings.classList.remove("hidden");
+      settingIcon.classList.add("bg-gray-200", "rounded-lg");
     } else {
-      itemId.classList.add("hidden");
-    //   settingIcon.classList.remove("bg-gray-200", "rounded-lg");
+      settings.classList.add("hidden");
+      settingIcon.classList.remove("bg-gray-200", "rounded-lg");
     }
   }
 
@@ -143,7 +143,7 @@
                 >(Id: {item.id})<Setting /></button
               ></i>
           </div>
-          <div class="hidden" bind:this={item.id}>
+          <div class="hidden" bind:this={settings}>
             <div
               class="flex justify-between items-center border py-2 shadow-md"
             >
