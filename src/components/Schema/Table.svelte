@@ -77,9 +77,6 @@
       }
     }
   
-    function settingsArgFun(event){
-  
-    }
   
     function settingFun(itemId) {
     const item = newArray.find(item => item.id === itemId);
