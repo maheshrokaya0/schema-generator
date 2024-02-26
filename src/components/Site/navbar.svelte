@@ -1,5 +1,5 @@
 <header class="w-full border-b">
-    <div class="h-16 max-w-4xl mx-auto px-3 flex items-center justify-between ">
+    <div class="h-16 xl:w-10/12 max-w-6xl mx-auto px-3 flex items-center justify-between ">
         <a href="/" class="text-2xl text-sky-600">LOGO</a>
         <nav class="text-lg">
             <a href="#features" class="hover:text-sky-600">Features</a>

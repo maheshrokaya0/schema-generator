@@ -65,7 +65,7 @@
   }
 </script>
 
-<div class="max-w-2xl mx-auto rounded mt-16 px-5">
+<div class=" border zw-[672px] rounded px-5 py-4">
   <div class="flex justify-between">
     <h4 class="text-xl">New Table</h4>
     <button class="text-xl bg-black text-white px-3 py-1 rounded font-semibold tracking-wide">Create</button>    

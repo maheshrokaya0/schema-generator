@@ -12,7 +12,7 @@
     // let menuForClick;
     
 
-    let inputField, menuItems, settingIcon;
+    let inputField, settingIcon;
 
     
     // function menuFun() {
