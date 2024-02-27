@@ -1,9 +1,22 @@
 <script>
   import { createEventDispatcher } from "svelte";
-
-  let tables = ["Table1", "Table2", "Table3"];
+  import { tableList } from '../store/store.js'
+  import Table from "./Table.svelte";
 
   const dispatch = createEventDispatcher();
+  
+  let tables = [];
+  tableList.subscribe((value)=> {
+    tables = value.map(item => item.name);
+  });
+
+  // const y = tableList.subscribe((value)=>{
+  //   tables = value.map(item => item.id);
+  // })
+
+  console.log(tables);
+  
+  
 </script>
 
 <div>
@@ -13,7 +26,7 @@
         {item}
       </li>
     {/each}
-    <li class=" max-w-56 border-2 font-semibold border-black rounded hover:bg-gray-200 hover:cursor-pointer">
+    <li class=" w-56 border-2 font-semibold border-black rounded hover:bg-gray-200 hover:cursor-pointer">
       <button class=" py-2 px-3 w-full"
         on:click={() => {
           dispatch("click");
