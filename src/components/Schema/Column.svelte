@@ -1,4 +1,7 @@
 <script>
+    import { tableList } from "../store/store.js";
+    import {createEventDispatcher} from 'svelte';
+
     import Button from "../Site/button.svelte";
     import Setting from "../../assets/icons/setting.svelte";
     import Drag from "../../assets/icons/drag.svelte";
@@ -7,21 +10,34 @@
 
     export let Icon;
     export let colId;
+    // export let iconName;
     // let menu = colId;
 
     // let menuForClick;
-    
-
-    let inputField, settingIcon;
-
     
     // function menuFun() {
     //   menu = !menu;
     // }
 
+    let settingIcon;
+
     function settingFun() {
       colId = !colId;
     } 
+
+    //store
+    const dispatch = createEventDispatcher();
+
+    let inputValue = '';
+
+    function handleChange(event){
+      inputValue = event.target.value;
+      dispatch('inputValue', inputValue);
+    }
+    
+        
+
+
 
 </script>
 <div class="flex mt-5">
@@ -35,7 +51,7 @@
         <svelte:component this={Icon} />
         {/if}
       </i>
-      <input type="text" class="py-1 px-2 w-full mx-1 tracking-widest rounded focus:outline-none focus:bg-gray-200" placeholder="Field" bind:this={inputField} />
+      <input type="text" class="py-1 px-2 w-full mx-1 tracking-widest rounded focus:outline-none focus:bg-gray-200" placeholder="Field" bind:value={inputValue} on:input={handleChange}/>
       <i class="mx-2 hover:outline hover:outline-1 hover:outline-gray-200 hover:rounded-lg" bind:this={settingIcon}>
         <button class="px-2 py-1" on:click={settingFun}><Setting /></button>
       </i>

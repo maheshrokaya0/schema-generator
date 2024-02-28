@@ -7,7 +7,7 @@
   
   let tables = [];
   tableList.subscribe((value)=> {
-    tables = value.map(item => item.name);
+    tables = value.map(item => item.tableName);
   });
 
   // const y = tableList.subscribe((value)=>{

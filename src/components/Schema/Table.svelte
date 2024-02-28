@@ -14,6 +14,7 @@
   import Relation from "../../assets/icons/relation.svelte";
   import Decimal from "../../assets/icons/decimal.svelte";
   import Text from "../../assets/icons/text.svelte";
+
   import Column from "./Column.svelte";
 
 
@@ -27,7 +28,9 @@
     Relation: Relation,
     Json: Braces,
   };
-  let newArray = [];
+
+ 
+   let newArray = [];
 
   let newCol, colItems;
 
@@ -54,9 +57,12 @@
     const obj = {
       id: generateUniqueId(),
       key,
-      Component
+      Component,
+      inputValue: handleInputValue(event)
+      // func : inputField()
     };
     newArray = [...newArray, obj];
+    console.log(newArray);
   }
 
   //Drag and Drop
@@ -77,16 +83,27 @@
   //store
   let table_name ='';
 
-  function storeClick(){
+  function storeName(){
     const obj = {
       id: generateUniqueId(),
-      name : table_name
+      tableName : table_name,
+      fields : newArray
     };
     tableList.update((tableList)=>{
       tableList.push(obj);
       return tableList;
     });
     table_name = '';
+    console.log(obj);
+  }
+
+  let inputValue = '';
+
+  function handleInputValue(value){
+    inputValue = value;
+    console.log("the value is : "+inputValue);
+    return inputValue;
+
   }
 
 </script>
@@ -94,16 +111,14 @@
 <div class=" border w-full rounded px-5 py-4">
   <div class="flex justify-between">
     <h4 class="text-xl">New Table</h4>
-    <button class="text-xl bg-black text-white px-3 py-1 rounded font-semibold tracking-wide" on:click={storeClick} >Create</button>    
+    <button class="text-xl bg-black text-white px-3 py-1 rounded font-semibold tracking-wide" on:click={storeName} >Create</button>    
   </div>
   <div class="mt-5">
     <div class="px-4 py-4 rounded-lg bg-gray-200">
       <label for="table_name" class="flex w-full font-semibold pb-1">
         Table Name: <span class="text-red-600">*</span>
       </label>
-      <!-- {#if table_name != ''} -->
       <input required type="text" placeholder="eg. &quot;posts&quot;" spellcheck="false" class="outline-none py-2 px-3 font-medium block w-full tracking-widest bg-transparent rounded-lg border border-[#6e6e6e83] focus:bg-white focus:tracking-widest" bind:value={table_name}/>
-      <!-- {/if} -->
     </div>
     <div class="mt-5">
       <h4 class="text-lg border-b pb-2">Columns</h4>
@@ -114,7 +129,7 @@
       >
         {#each newArray as item (item.id)}
         <div animate:flip="{{duration:100}}">
-          <Column colId ={item.id} Icon = {item.Component}/>
+          <Column on:inputValue={handleInputValue} colId ={item.id} Icon = {item.Component}/>
         </div>
         {/each}
       </section>
