@@ -59,10 +59,18 @@
       key,
       Component,
       inputValue: '',
+      emptyStatus : false,
+      uniqueStatus : false,
     };
     newArray = [...newArray, obj];
   }
     $: console.log(newArray);
+
+  //delete object from array
+  // function deleteFunc(){
+  //   // newArray = newArray.filter((item)=> item.id !== "ieQlFwr");
+  // }
+
   //Drag and Drop
   const handleConsider = (event)=>{
     newArray = event.detail.items;
@@ -72,15 +80,8 @@
     newArray = event.detail.items;    
   }
 
-  //click dispatch on create button
-  // const dispatch = createEventDispatcher();
-  // function createDispatch(){
-  //   dispatch('click', {message : 'click has been dispatched'});
-  // }
-
-  //store
+  //store table
   let table_name ='';
-
   function storeName(){
     const obj = {
       id: generateUniqueId(),
@@ -94,6 +95,7 @@
     table_name = '';
     console.log(obj);
   }
+
 
 </script>
 
@@ -118,7 +120,7 @@
       >
         {#each newArray as item (item.id)}
         <div animate:flip="{{duration:100}}">
-          <Column bind:inputVal={item.inputValue} colId ={item.id} Icon = {item.Component}/>
+          <Column on:delete={deleteFunc} bind:uniqueStatus={item.uniqueStatus} bind:emptyStatus={item.emptyStatus} bind:inputVal={item.inputValue} colId ={item.id} Icon = {item.Component}/>
         </div>
         {/each}
       </section>

@@ -1,34 +1,49 @@
 <script>
-    import { tableList } from "../store/store.js";
-    import {createEventDispatcher} from 'svelte';
+    import { createEventDispatcher } from 'svelte';
 
     import Button from "../Site/button.svelte";
     import Setting from "../../assets/icons/setting.svelte";
     import Drag from "../../assets/icons/drag.svelte";
     import Delete from '../../assets/icons/delete.svelte';
-    // import Menu from "../../assets/icons/menu.svelte";
 
     export let Icon;
     export let colId;
     export let inputVal = "";
-    // export let iconName;
-    // let menu = colId;
 
-    // let menuForClick;
-    
-    // function menuFun() {
-    //   menu = !menu;
-    // }
+    //creating dispatch
+    const dispatch = createEventDispatcher();
 
-    $: console.log(inputVal)
+    // $: console.log(inputVal)
     let settingIcon;
+    let ColumnId;
 
     function settingFun() {
-      colId = !colId;
+      ColumnId = !ColumnId;
+      console.log("sett open")
+      console.log("col status"+ColumnId);
     } 
     
-        
+  export let emptyStatus = false;
+  let emptStatus = true;
+  function buttonFuncA(){
+    // emptyStatus = !emptyStatus;
+    if(emptyStatus == false){
+      emptyStatus = true;
+    }else{
+      emptyStatus = false;
+    }
+    console.log(emptyStatus);
+    // console.log("col status"+colId);
+  }
+  export let uniqueStatus = false;
+  function buttonFuncB(){
+    uniqueStatus =!uniqueStatus;
+    console.log(uniqueStatus);
+  }
 
+  function deleteFunc(){
+    dispatch('delete')
+  }
 
 </script>
 <div class="flex mt-5">
@@ -47,26 +62,18 @@
         <button class="px-2 py-1" on:click={settingFun}><Setting /></button>
       </i>
     </div>
-    <div class:hidden={colId}>
+    <div class:hidden={ColumnId}>
       <div class="flex justify-between items-center border py-2 shadow-md">
         <div class="flex py-3 px-2">
           <div class="bg-[#D9D9D9] px-3 py-2 rounded-lg font-semibold ">
-            <Button label="Not Empty" />
+            <Button label="Not Empty" status={emptyStatus} on:click={buttonFuncA}/>
           </div>
           <div class="ml-5 bg-[#D9D9D9] px-3 py-2 rounded-lg font-semibold ">
-            <Button label="Is Unique" />
+            <Button label="Is Unique" status={uniqueStatus} on:click={buttonFuncB}/>
           </div>
         </div>
         <div class="flex relative menus">
-          <button class="hover:cursor-pointer hover:bg-gray-200 rounded-full mr-3 py-1 px-2" ><Delete /></button>
-          <!-- <div class="hidden right-10 absolute shadow-lg bg-white border px-3 py-2 rounded" bind:this={menuForClick} class:hidden={menu}>
-            <p class="w-full border-b px-2 py-1 hover:bg-gray-200 hover:cursor-pointer">
-              <button>Delete</button>
-            </p>
-            <p class="w-full px-2 py-1 hover:bg-gray-200 hover:cursor-pointer">
-              <button>Duplicate</button>
-            </p>
-          </div> -->
+          <button class="hover:cursor-pointer hover:bg-gray-200 rounded-full mr-3 py-1 px-2" on:click={deleteFunc}><Delete /></button>
         </div>
       </div>
     </div>
