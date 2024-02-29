@@ -10,6 +10,7 @@
 
     export let Icon;
     export let colId;
+    export let inputVal = "";
     // export let iconName;
     // let menu = colId;
 
@@ -19,24 +20,14 @@
     //   menu = !menu;
     // }
 
+    $: console.log(inputVal)
     let settingIcon;
 
     function settingFun() {
       colId = !colId;
     } 
-
-    //store
-    const dispatch = createEventDispatcher();
-
-    let inputValue = '';
-
-    function handleChange(event){
-      inputValue = event.target.value;
-      dispatch('inputValue', inputValue);
-    }
     
         
-
 
 
 </script>
@@ -51,7 +42,7 @@
         <svelte:component this={Icon} />
         {/if}
       </i>
-      <input type="text" class="py-1 px-2 w-full mx-1 tracking-widest rounded focus:outline-none focus:bg-gray-200" placeholder="Field" bind:value={inputValue} on:input={handleChange}/>
+      <input type="text" class="py-1 px-2 w-full mx-1 tracking-widest rounded focus:outline-none focus:bg-gray-200" placeholder="Field" bind:value="{inputVal}"/>
       <i class="mx-2 hover:outline hover:outline-1 hover:outline-gray-200 hover:rounded-lg" bind:this={settingIcon}>
         <button class="px-2 py-1" on:click={settingFun}><Setting /></button>
       </i>

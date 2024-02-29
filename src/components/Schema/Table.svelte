@@ -44,7 +44,7 @@
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
   function generateUniqueId() {
-    let result = " ";
+    let result = "";
     const charactersLength = characters.length;
     for (let i = 0; i < 7; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -58,13 +58,11 @@
       id: generateUniqueId(),
       key,
       Component,
-      inputValue: handleInputValue(event)
-      // func : inputField()
+      inputValue: '',
     };
     newArray = [...newArray, obj];
-    console.log(newArray);
   }
-
+    $: console.log(newArray);
   //Drag and Drop
   const handleConsider = (event)=>{
     newArray = event.detail.items;
@@ -97,15 +95,6 @@
     console.log(obj);
   }
 
-  let inputValue = '';
-
-  function handleInputValue(value){
-    inputValue = value;
-    console.log("the value is : "+inputValue);
-    return inputValue;
-
-  }
-
 </script>
 
 <div class=" border w-full rounded px-5 py-4">
@@ -129,7 +118,7 @@
       >
         {#each newArray as item (item.id)}
         <div animate:flip="{{duration:100}}">
-          <Column on:inputValue={handleInputValue} colId ={item.id} Icon = {item.Component}/>
+          <Column bind:inputVal={item.inputValue} colId ={item.id} Icon = {item.Component}/>
         </div>
         {/each}
       </section>
