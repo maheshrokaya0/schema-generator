@@ -16,6 +16,8 @@
   import Text from "../../assets/icons/text.svelte";
 
   import Column from "./Column.svelte";
+  import Sidebar from './Sidebar.svelte';
+
 
 
   const list = {
@@ -67,9 +69,10 @@
     $: console.log(newArray);
 
   //delete object from array
-  // function deleteFunc(){
-  //   // newArray = newArray.filter((item)=> item.id !== "ieQlFwr");
-  // }
+  function deleteFunc(id){
+    newArray = newArray.filter((item)=> item.id !== id);
+  }
+  $: console.log(newArray);
 
   //Drag and Drop
   const handleConsider = (event)=>{
@@ -120,7 +123,10 @@
       >
         {#each newArray as item (item.id)}
         <div animate:flip="{{duration:100}}">
-          <Column on:delete={deleteFunc} bind:uniqueStatus={item.uniqueStatus} bind:emptyStatus={item.emptyStatus} bind:inputVal={item.inputValue} colId ={item.id} Icon = {item.Component}/>
+          <Column on:delete={()=>{
+            deleteFunc(item.id)
+          }} 
+          bind:uniqueStatus={item.uniqueStatus} bind:emptyStatus={item.emptyStatus} bind:inputVal={item.inputValue} colId ={item.id} Icon = {item.Component}/>
         </div>
         {/each}
       </section>

@@ -21,7 +21,7 @@
 <Navbar/>
 <div class="border flex  mx-auto mt-16 px-5 py-5 max-w-5xl">
   <div class="flex basis-1/2">
-    <Sidebar on:click={tableFunc} />
+    <Sidebar on:newTable={tableFunc} />
   </div>
   <div class="hidden basis-2/3" bind:this={table}>
     <Table/>
