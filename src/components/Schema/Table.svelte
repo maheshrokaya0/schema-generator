@@ -84,7 +84,7 @@
   }
 
   //store table
-  let table_name ='';
+  export let table_name ='';
   function storeName(){
     const obj = {
       id: generateUniqueId(),
@@ -96,7 +96,25 @@
       return tableList;
     });
     table_name = '';
-    console.log(obj);
+    
+    tableList.subscribe(value => {
+      console.log(value);
+
+      value.forEach(item =>{
+        console.log("table names is "+item.tableName);
+
+        if(item.fields){
+          item.fields.forEach(field =>{
+            console.log("fields are "+field.key);
+  
+            // field.forEach(item =>{
+            //   console.log("field input values are: "+item.inputValue);
+            // })
+          });
+        }
+      });
+    });
+    
   }
 
 

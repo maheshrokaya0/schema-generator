@@ -23,8 +23,9 @@
       console.log("col status"+ColumnId);
     } 
     
+    
   export let emptyStatus = false;
-  let emptStatus = true;
+  // let emptStatus = true;
   function buttonFuncA(){
     // emptyStatus = !emptyStatus;
     if(emptyStatus == false){
