@@ -32,7 +32,7 @@
   };
 
  
-   let newArray = [];
+  export let newArray = [];
 
   let newCol, colItems;
 
@@ -96,24 +96,7 @@
       return tableList;
     });
     table_name = '';
-    
-    tableList.subscribe(value => {
-      console.log(value);
-
-      value.forEach(item =>{
-        console.log("table names is "+item.tableName);
-
-        if(item.fields){
-          item.fields.forEach(field =>{
-            console.log("fields are "+field.key);
-  
-            // field.forEach(item =>{
-            //   console.log("field input values are: "+item.inputValue);
-            // })
-          });
-        }
-      });
-    });
+    newArray = [];
     
   }
 

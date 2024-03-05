@@ -19,20 +19,36 @@
   }
   
   let tableNamee = '';
+  let tableFields = [];
   
   function tableInfo(event){
     // toggle = !toggle;
     newTable.classList.add("hidden");
     listedTable.classList.remove("hidden");
-    const { tableName, tableId } = event.detail;
+
+    const { tableName, tableId, tableField } = event.detail;
+
+    console.log("event.detail");
+    console.log(event.detail);
 
     tableNamee = tableName;
+    tableFields = tableField;
+    console.log("fields from myappsvelte");
+    console.log(tableFields);
   }
-//  console.log(tableNamee)
 
-  tableList.subscribe(value =>{
-    console.log(value);
-  })
+  // const obj = {
+  //     id: fieldId,
+  //     key,
+  //     Component,
+  //     inputValue: '',
+  //     emptyStatus : false,
+  //     uniqueStatus : false,
+  //   };
+
+  // tableList.subscribe(value =>{
+  //   console.log(value);
+  // })
 
 
 </script>
@@ -46,6 +62,6 @@
     <Table />
   </div>
   <div class="hidden basis-2/3" bind:this={listedTable}>
-    <Table table_name={tableNamee}/>
+    <Table table_name={tableNamee} newArray={tableFields}/>
   </div>
 </div>
