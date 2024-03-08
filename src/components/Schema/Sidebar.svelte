@@ -5,7 +5,7 @@
 
   const dispatch = createEventDispatcher();
   
-  let tables = [];
+  $: tables = [];
 
   // send table values to function infotable 
   tableList.subscribe((value)=> {
@@ -17,19 +17,11 @@
   });
 
   let current = '';
-  let fieldNames = [];
   function tableInfo(tableName, tableId, tableField){
     dispatch('tableInfo', { tableName, tableId, tableField });
     current = tableId;
-    console.log("table "+ tableName + " is clicked");
-    console.log(tableId + " is table id");
-    console.log("fields are : "+ tableField);
-    // tableField.forEach(field=>{
-    //   fieldNames = [...fieldNames, field.inputValue];
-    // })
-    // console.log("fieldssssss areeee : "+ fieldNames);
-    // fieldNames = [];
   }
+
 
 </script>
 

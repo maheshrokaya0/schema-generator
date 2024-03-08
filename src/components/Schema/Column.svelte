@@ -13,33 +13,25 @@
     //creating dispatch
     const dispatch = createEventDispatcher();
 
-    // $: console.log(inputVal)
     let settingIcon;
     let ColumnId;
 
     function settingFun() {
       ColumnId = !ColumnId;
-      console.log("sett open")
-      console.log("col status"+ColumnId);
     } 
     
     
   export let emptyStatus = false;
-  // let emptStatus = true;
   function buttonFuncA(){
-    // emptyStatus = !emptyStatus;
     if(emptyStatus == false){
       emptyStatus = true;
     }else{
       emptyStatus = false;
     }
-    console.log(emptyStatus);
-    // console.log("col status"+colId);
   }
   export let uniqueStatus = false;
   function buttonFuncB(){
     uniqueStatus =!uniqueStatus;
-    console.log(uniqueStatus);
   }
 
   function deleteFunc(){

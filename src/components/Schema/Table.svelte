@@ -1,6 +1,6 @@
  
 <script>
-
+  import {createEventDispatcher} from 'svelte'
   import {tableList} from '../store/store.js';
 
   import { dndzone } from 'svelte-dnd-action';
@@ -18,8 +18,10 @@
   import Column from "./Column.svelte";
   import Sidebar from './Sidebar.svelte';
 
+  //create dispatch
+  const dispatch = createEventDispatcher();
 
-
+  // New Column option values
   const list = {
     "Plain Text": Text,
     Number: Number,
@@ -31,7 +33,7 @@
     Json: Braces,
   };
 
- 
+ //array to store columns
   export let newArray = [];
 
   let newCol, colItems;
@@ -66,38 +68,61 @@
     };
     newArray = [...newArray, obj];
   }
-    $: console.log(newArray);
+    // $: console.log(newArray);
 
   //delete object from array
   function deleteFunc(id){
     newArray = newArray.filter((item)=> item.id !== id);
   }
-  $: console.log(newArray);
 
+  // $: console.log(newArray);
+  
   //Drag and Drop
   const handleConsider = (event)=>{
     newArray = event.detail.items;
   }
   const handleFinalize = (event)=>{
-    console.log("dragend");
+    // console.log("dragend");
     newArray = event.detail.items;    
   }
 
+  //Create & Save button behaviour
+  export let buttonText = "create"
+
+  //subscribe values
+  let tableN = '';
+  let tables = [];
+        tableList.subscribe((value)=> {
+        tables = value.map(item => ({
+          tableN: item.tableName,
+          tableI: item.id,
+          tableF: item.fields
+        }));
+      });
+
   //store table
-  export let table_name ='';
-  function storeName(){
-    const obj = {
-      id: generateUniqueId(),
-      tableName : table_name,
-      fields : newArray
-    };
-    tableList.update((tableList)=>{
-      tableList.push(obj);
-      return tableList;
-    });
-    table_name = '';
-    newArray = [];
-    
+  export let table_name = '';
+  let tableId = '';
+  function storeTable(table){
+    if(buttonText === "create"){
+      const obj = {
+        id: generateUniqueId(),
+        tableName : table_name,
+        fields : newArray
+      };
+      tableId = obj.id;
+      tableList.update((tableList)=>{
+        tableList.push(obj);
+        return tableList;
+      });
+      table_name = '';
+      newArray = [];
+      console.log(obj);
+      
+    }else{
+      dispatch('buttonClick', { tableN:table_name, tableF:newArray });
+    }
+
   }
 
 
@@ -106,7 +131,7 @@
 <div class=" border w-full rounded px-5 py-4">
   <div class="flex justify-between">
     <h4 class="text-xl">New Table</h4>
-    <button class="text-xl bg-black text-white px-3 py-1 rounded font-semibold tracking-wide" on:click={storeName} >Create</button>    
+    <button class="text-xl bg-black text-white rounded font-semibold px-3" on:click={storeTable}><input contenteditable="false" class="cursor-pointer bg-transparent border-none focus:ring-0 font-semibold tracking-wide text-center w-16 px-1" type="text" value={buttonText} readonly></button>    
   </div>
   <div class="mt-5">
     <div class="px-4 py-4 rounded-lg bg-gray-200">
