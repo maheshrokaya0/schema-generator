@@ -1,14 +1,13 @@
 <script>
   import { createEventDispatcher } from "svelte";
-  import { tableList } from '../store/store.js'
-  import Table from "./Table.svelte";
+  import { onDestroy } from 'svelte';
+  import { tableList } from '../store/store.js';
 
   const dispatch = createEventDispatcher();
   
-  $: tables = [];
-
   // send table values to function infotable 
-  tableList.subscribe((value)=> {
+  $: tables = [];
+  const unsub = tableList.subscribe((value)=> {
     tables = value.map(item => ({
       tableName: item.tableName,
       tableId: item.id,
@@ -18,10 +17,16 @@
 
   let current = '';
   function tableInfo(tableName, tableId, tableField){
+
+    //dispatching clicks & values to table.svelte
     dispatch('tableInfo', { tableName, tableId, tableField });
     current = tableId;
   }
 
+  //unsubscribe a value when page is being destroyed
+  onDestroy(()=> {
+    unsub();
+  })
 
 </script>
 

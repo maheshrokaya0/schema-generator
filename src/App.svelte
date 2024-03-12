@@ -11,7 +11,6 @@
 
   let newTable;
   let listedTable;
-  let toggle;
 
   function tableFunc(){
     // toggle = !toggle;
@@ -19,8 +18,10 @@
     listedTable.classList.add("hidden");
   }
   
+  // variables to store data from Sidebar
   let tableNamee = '';
   let tableFields = [];
+  let tableid = '';
   
   function tableInfo(event){
     // toggle = !toggle;
@@ -28,33 +29,34 @@
     listedTable.classList.remove("hidden");
 
     //revieve tableData from Sidebar
-    const { tableName, tableId, tableField } = event.detail;
+    const { tableId, tableName, tableField } = event.detail;
+    tableid = tableId;
     tableNamee = tableName;
     tableFields = tableField;
+
   }
 
-  //button functions
+  //update button function
+  let tableN;
+  let tableF;
+  
   function buttonClickFunc(event){
-    const { tableN, tableI, tableF } = event.detail;
-    const currentTableList = $tableList;
-    const index = currentTableList.findIndex(table => table.id === tableI);
-
-    if(index !== -1){
-      currentTableList[index].tableName = tableN;
-      currentTableList[index].fields = tableF;
-
-      tableList.set(currentTableList);
-      tableFields = tableF;
-    }
-    // tableList.update((tableList)=>{
-          
-    // })
-    console.log(tableN, tableF);
-    // tableNamee = tableN;
-
+    tableN = event.detail.table_name;
+    tableF = event.detail.newArray;
+    console.log(tableN);
+    console.log(event.detail);
+    tableList.update(tableList => {
+      tableList.map(obj => {
+        if(obj.id == tableid){
+          obj.tableName = tableN;
+          obj.fields = tableF;
+        }
+      })
+      console.log(tableN);
+      return tableList;
+    })
   }
-
-
+  
 </script>
 
 <Navbar/>

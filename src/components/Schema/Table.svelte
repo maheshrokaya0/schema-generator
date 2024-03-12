@@ -16,7 +16,6 @@
   import Text from "../../assets/icons/text.svelte";
 
   import Column from "./Column.svelte";
-  import Sidebar from './Sidebar.svelte';
 
   //create dispatch
   const dispatch = createEventDispatcher();
@@ -36,9 +35,9 @@
  //array to store columns
   export let newArray = [];
 
-  let newCol, colItems;
-
+  
   //show columns
+  let newCol, colItems;
   function colfun() {
     newCol.classList.add("rounded-b-none");
     colItems.classList.remove("hidden");
@@ -74,8 +73,6 @@
   function deleteFunc(id){
     newArray = newArray.filter((item)=> item.id !== id);
   }
-
-  // $: console.log(newArray);
   
   //Drag and Drop
   const handleConsider = (event)=>{
@@ -89,21 +86,10 @@
   //Create & Save button behaviour
   export let buttonText = "create"
 
-  //subscribe values
-  let tableN = '';
-  let tables = [];
-        tableList.subscribe((value)=> {
-        tables = value.map(item => ({
-          tableN: item.tableName,
-          tableI: item.id,
-          tableF: item.fields
-        }));
-      });
-
-  //store table
+  //store inputs in table
   export let table_name = '';
   let tableId = '';
-  function storeTable(table){
+  function storeTable(){
     if(buttonText === "create"){
       const obj = {
         id: generateUniqueId(),
@@ -115,16 +101,16 @@
         tableList.push(obj);
         return tableList;
       });
+      console.log(obj);
+      //clearing tablename and newArray after clicking create
       table_name = '';
       newArray = [];
-      console.log(obj);
       
     }else{
-      dispatch('buttonClick', { tableN:table_name, tableF:newArray });
+      //dispatching new tableName (input value) and array to app.svelte
+      dispatch('buttonClick', {table_name, newArray});
     }
-
   }
-
 
 </script>
 
